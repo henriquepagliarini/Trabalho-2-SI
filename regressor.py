@@ -2,6 +2,8 @@ import numpy as np
 
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
+from matplotlib import pyplot as plt
+
 import joblib
 
 class Regressor:
@@ -39,6 +41,22 @@ class Regressor:
         
     def test(self, test_dataset):
         print(f"\n========= Teste - {self.__class__.__name__.upper()} =========")
+        
+        y_pred_test = self.best_model.predict(test_dataset.Xm)
+        Ym = test_dataset.Ym
+        
+        mse = mean_squared_error(Ym, y_pred_test)
+        rmse = np.sqrt(mse)
+        
+        print(f"MSE.: {mse:.5f}")
+        print(f"RMSE: {rmse:.5f}")
+        
+        plt.figure()
+        plt.scatter(Ym, y_pred_test, alpha=0.5, color='purple')
+        plt.plot([Ym.min(), Ym.max()], [Ym.min(), Ym.max()], 'k--')
+        plt.xlabel('Valor Real (sobr)')
+        plt.ylabel('Valor Predito (sobr)')
+        plt.gcf().canvas.manager.set_window_title(f"Dispersão - {self.__class__.__name__.upper()}")
     
     def save_model(self):
         filename = f"melhor_{self.__class__.__name__.lower()}.joblib"
@@ -116,5 +134,5 @@ class Regressor:
         
     def show_best_model(self):
         print(f"\n=============== Melhor modelo - {self.__class__.__name__.upper()} ===============")
-        print(f"Parâmetros ..............: {self.clf.best_params_}")
-        print(f"Média MSE de validação...: {np.abs(self.clf.best_score_):.5f}")
+        print(f"Parâmetros ...........: {self.clf.best_params_}")
+        print(f"Média MSE de validação: {np.abs(self.clf.best_score_):.5f}")

@@ -3,3 +3,4 @@ __pycache__
 datasets/vict/10000v
 
 *.joblib
+*.pdf
