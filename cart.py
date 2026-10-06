@@ -7,19 +7,19 @@ class Cart(Regressor):
         parameters = [
             {
                 # Subajustada (U)
-                'criterion': ['entropy'],
+                'criterion': ['squared_error'],
                 'max_depth': [8],
                 'min_samples_leaf': [10]
             },
             {
                 # Equilibrada (E)
-                'criterion': ['entropy'],
+                'criterion': ['squared_error'],
                 'max_depth': [8],
                 'min_samples_leaf': [10],
             },
             {
                 # Sobreajustada (O)
-                'criterion': ['entropy'],
+                'criterion': ['squared_error'],
                 'max_depth': [8],
                 'min_samples_leaf': [10]
             }
