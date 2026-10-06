@@ -1,7 +1,7 @@
 import numpy as np
 
 from sklearn.model_selection import GridSearchCV
-
+from sklearn.metrics import mean_squared_error
 import joblib
 
 class Regressor:
@@ -29,6 +29,13 @@ class Regressor:
     
     def retrain(self):
         print(f"\n========= Retreino - {self.__class__.__name__.upper()} =========")
+                
+        self.best_model = self.model.set_params(**self.clf.best_params_)
+        self.best_model.fit(self.dataset.Xm, self.dataset.Ym)
+        
+        y_pred_retrain = self.best_model.predict(self.dataset.Xm)
+        mse_train = mean_squared_error(self.dataset.Ym, y_pred_retrain)
+        print(f"MSE com dados de treino: {mse_train:.5f}")
         
     def test(self, test_dataset):
         print(f"\n========= Teste - {self.__class__.__name__.upper()} =========")

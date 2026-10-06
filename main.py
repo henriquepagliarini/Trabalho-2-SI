@@ -20,5 +20,8 @@ def main():
     rn.show_results()
     rn.show_best_model()
     
+    cart.retrain()
+    rn.retrain()
+    
 if __name__ == '__main__':
     main()
