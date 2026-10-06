@@ -8,7 +8,7 @@ def main():
     dataset.load_data()
     
     print("Treinando CART...")
-    cart = Cart(dataset, 5)
+    cart = Cart(dataset, 3)
     cart.train()
     cart.process_results()
     cart.show_results()
@@ -34,10 +34,32 @@ def main():
     
     cart.test(test_dataset)
     rn.test(test_dataset)
-    plt.show()
+
+    print(
+        f"Ganho {'do CART' if cart.best_model_mse < rn.best_model_mse else 'da RN'} "
+        f"em relação {'à RN' if cart.best_model_mse < rn.best_model_mse else 'ao CART'}: "
+        f"{compare_mse(cart.best_model_mse, rn.best_model_mse):.2f}%"
+    )
     
+    print(
+        f"Ganho {'do CART' if cart.best_model_rmse < rn.best_model_rmse else 'da RN'} "
+        f"em relação {'à RN' if cart.best_model_rmse < rn.best_model_rmse else 'ao CART'}: "
+        f"{compare_mse(cart.best_model_rmse, rn.best_model_rmse):.2f}%"
+    )
+        
+    plt.show()
+            
     cart.test_joblib('melhor_cart.joblib', test_dataset)
     rn.test_joblib('melhor_rn.joblib', test_dataset)
+    
+def compare_mse(cart_se, rn_se):
+    if (cart_se == 0 and rn_se == 0):
+        return -1
+    
+    if (cart_se < rn_se):
+        return (1 - (cart_se/rn_se)) * 100
+    else:
+        return (1 - (rn_se/cart_se)) * 100
     
 if __name__ == '__main__':
     main()

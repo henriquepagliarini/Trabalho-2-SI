@@ -15,6 +15,8 @@ class Regressor:
 
         self.results = {}
         self.best_model = None
+        self.best_model_mse = None
+        self.best_model_rmse = None
         
     def train(self):
         self.clf = GridSearchCV(
@@ -45,11 +47,11 @@ class Regressor:
         y_pred_test = self.best_model.predict(test_dataset.Xm)
         Ym = test_dataset.Ym
         
-        mse = mean_squared_error(Ym, y_pred_test)
-        rmse = np.sqrt(mse)
+        self.best_model_mse = mean_squared_error(Ym, y_pred_test)
+        self.best_model_rmse = np.sqrt(self.best_model_mse)
         
-        print(f"MSE.: {mse:.5f}")
-        print(f"RMSE: {rmse:.5f}")
+        print(f"MSE.: {self.best_model_mse:.5f}")
+        print(f"RMSE: {self.best_model_rmse:.5f}")
         
         plt.figure()
         plt.scatter(Ym, y_pred_test, alpha=0.3, color='purple')
