@@ -3,25 +3,24 @@ from sklearn.tree import DecisionTreeRegressor
 
 class Cart(Regressor):
     def __init__(self, dataset, n_folds):
-        # Hiperparâmetros não estão ajustados
         parameters = [
             {
                 # Subajustada (U)
-                'criterion': ['squared_error'],
-                'max_depth': [8],
-                'min_samples_leaf': [10]
+                'max_depth': [1],
+                'min_samples_leaf': [64],
+                'min_samples_split': [32]
             },
             {
                 # Equilibrada (E)
-                'criterion': ['squared_error'],
                 'max_depth': [8],
-                'min_samples_leaf': [10],
+                'min_samples_leaf': [32],
+                'min_samples_split': [16]
             },
             {
                 # Sobreajustada (O)
-                'criterion': ['squared_error'],
-                'max_depth': [8],
-                'min_samples_leaf': [10]
+                'max_depth': [24],
+                'min_samples_leaf': [1],
+                'min_samples_split': [2]
             }
         ]
 
