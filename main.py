@@ -1,7 +1,7 @@
 from dataset import DataSet
 from cart import Cart
 from rn import Rn
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 
 def main():
     dataset = DataSet('./datasets/vict/10000v/data.csv')
@@ -35,6 +35,9 @@ def main():
     cart.test(test_dataset)
     rn.test(test_dataset)
     plt.show()
+    
+    cart.test_joblib('melhor_cart.joblib', test_dataset)
+    rn.test_joblib('melhor_rn.joblib', test_dataset)
     
 if __name__ == '__main__':
     main()
