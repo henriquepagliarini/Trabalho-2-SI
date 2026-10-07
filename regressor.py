@@ -58,6 +58,7 @@ class Regressor:
         plt.plot([Ym.min(), Ym.max()], [Ym.min(), Ym.max()], 'k--')
         plt.xlabel('Valor Real (sobr)')
         plt.ylabel('Valor Predito (sobr)')
+        plt.title(f"Gráfico de Dispersão: {self.__class__.__name__.upper()}")
         plt.gcf().canvas.manager.set_window_title(f"Dispersão - {self.__class__.__name__.upper()}")
     
     def save_model(self):
@@ -138,17 +139,3 @@ class Regressor:
         print(f"\n=============== Melhor modelo - {self.__class__.__name__.upper()} ===============")
         print(f"Parâmetros ...........: {self.clf.best_params_}")
         print(f"Média MSE de validação: {np.abs(self.clf.best_score_):.5f}")
-
-    def test_joblib(self, filename, test_dataset):
-        print(f"\n========= Testando {filename} =========")
-        
-        model = joblib.load(filename)
-        
-        Ym = test_dataset.Ym
-        y_pred = model.predict(test_dataset.Xm)
-        
-        mse = mean_squared_error(Ym, y_pred)
-        rmse = np.sqrt(mse)
-        
-        print(f"MSE.: {mse:.5f}")
-        print(f"RMSE: {rmse:.5f}")

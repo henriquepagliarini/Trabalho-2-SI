@@ -48,9 +48,6 @@ def main():
     )
         
     plt.show()
-            
-    cart.test_joblib('melhor_cart.joblib', test_dataset)
-    rn.test_joblib('melhor_rn.joblib', test_dataset)
     
 def compare_mse(cart_se, rn_se):
     if (cart_se == 0 and rn_se == 0):
