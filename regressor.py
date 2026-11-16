@@ -102,7 +102,7 @@ class Regressor:
             self.models.append(model)
             
     def show_results(self):
-        print(f"\n=============== Classificador {self.__class__.__name__.upper()} ===============")
+        print(f"\n=============== Regressor {self.__class__.__name__.upper()} ===============")
         for i, model in enumerate(self.models):
 
             print(f"\nModelo {i + 1}")
